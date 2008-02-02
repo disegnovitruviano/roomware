@@ -1,0 +1,81 @@
+# Before the scripts run, this will set a proper Java environment
+# Please edit this values, and you are not supposed to edit these in
+# the script dir.
+#
+# Installation DIR
+#
+# This should point to the Roomware installation directory
+#
+ROOMWARE_PATH="$HOME/Projects/RoomWare/Server"
+#
+#
+# If you have the normal RoomWare layout this should point to the
+# RoomWare server class files.
+#
+ROOMWARE_LIB="$ROOMWARE_PATH/lib/RoomWareServer.jar"
+#
+# The module package name
+# 
+MODULE_NAME="PROTO"
+#
+# And you should edit this to the path of your module
+#
+MODULE_PATH="$HOME/Projects/RoomWare/Modules/$MODULE_NAME"
+#
+# EXECUTABLES
+# 
+# - This section will point to executables. For most systems the executables
+#   shouldnt be adjusted.
+#
+# - If you point to an executable, the absolute path can be ommited if the
+#   executable is located in a directory that has been included in the PATH
+#   environment variable.
+#
+#
+# 1. Java Runtime Environment
+#
+#    REQUIRED: yes
+#    VERSION : at least 1.5
+#    DOWNLOAD: see 'Java Development Kit'
+#
+#    Every modern computer/operating system comes with a java virtual
+#    machine (Java Runtime Environment). You should pass the name of
+#    the java virtual machine binary.
+#
+#    If you still need one, it will be included by the Java SE Development
+#    Kit, see 'The Java Compiler'.
+#
+JAVA="java"
+#
+#
+# 2. Java Development Kit / The Java Compiler
+#
+#    REQUIRED: only for making changes to the roomware source code
+#    VERSION : at least 1.5 (Standard Edition)
+#    DOWNLOAD: http://java.sun.com/javase/downloads/index.jsp
+#
+#    The JDK comes with the java source code and a compiler which enables
+#    you to build java class files, suitable for the Java Runtime Environment.
+#    The JAVAC variable should point to your java compiler.
+#    The JAR variable should point to your java archive utility.
+#
+#    If you have a normal end user install, the Java Development Kit (JDK)
+#    is not provided. You can download it from Sun Microsystems' website.
+#
+#    Use the Java 2 Second Edition version >= 1.5 (newest recommended).
+#    Java comes in multiple versions: Micro Edition (J2ME), Standard Edition
+#    (J2SE) and Enterprise Edition (J2EE). The J2ME is developed for small
+#    limited mobile devices and won't give you 'the Java' on your normal
+#    computer. Don't download this version for use with this distribution of
+#    the Roomware server. It simply won't work.
+#    The Enterprise Edition is a super set (it contains every thing that the
+#    J2SE contains, but even more...) so you can use this. It uses the same
+#    Java Virtual Machine in contrast to the J2ME.
+#
+JAVAC="javac"
+JAR="jar"
+#
+#
+#
+# export the variable for the roomware environment
+export JAVA JAVAC JAR MODULE_PATH ROOMWARE_LIB MODULE_NAME
