@@ -1,0 +1,2 @@
+export JAVA_LIBRARY_PATH=lib
+export CLASSPATH=lib/bluedentist.jar:src

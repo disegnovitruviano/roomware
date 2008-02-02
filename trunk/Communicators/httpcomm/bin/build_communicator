@@ -1,0 +1,33 @@
+#!/bin/bash
+
+LIB_PATH="$COMMUNICATOR_PATH/lib"
+SRC_PATH="$COMMUNICATOR_PATH/src"
+JAR_NAME="$COMMUNICATOR_NAME.jar"
+
+# set the classpath
+
+  # start with empty classpath
+  unset CLASSPATH
+  unset JARS
+
+  # add all jars to the classpath
+  LIB_JARS="`ls \"$LIB_PATH\"|grep '[.]jar$'`"
+  for LIB_JAR in $LIB_JARS;
+    do CLASSPATH="$LIB_PATH/$LIB_JAR:$CLASSPATH";
+  done
+
+  # add RoomWare classes
+  CLASSPATH="$ROOMWARE_LIB:$CLASSPATH"
+  export CLASSPATH
+
+
+# compile the module source
+
+  THIS_COMMUNICATOR_SOURCE_FILES="$SRC_PATH/$COMMUNICATOR_NAME/*.java"
+  if "$JAVAC" $THIS_COMMUNICATOR_SOURCE_FILES; then : ; else exit; fi;
+
+
+# build jar out of source files
+
+  JAR_ARGS="-cf $COMMUNICATOR_PATH/build/$JAR_NAME -C $SRC_PATH $COMMUNICATOR_NAME"
+  "$JAR" $JAR_ARGS
