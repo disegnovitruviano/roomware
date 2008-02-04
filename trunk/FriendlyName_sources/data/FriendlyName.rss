@@ -1,0 +1,105 @@
+/*
+* ============================================================================
+*  Name        : FriendlyName.rss
+*  Part of     : FriendlyName
+*  Created     : 29.04.2007 by Payu Sergey and Valerie Ivangorodsky
+*  Description : This file contains all the resources for FriendlyName.
+*  Version     : 1.0
+* ============================================================================
+*/
+
+// RESOURCE IDENTIFIER
+NAME    BASN // 4 letter ID
+
+// INCLUDES
+#include <eikon.rh>
+#include "FriendlyName.hrh"
+#include "FriendlyName.loc"
+#include <avkon.rsg>
+#include <avkon.rh>
+#include <avkon.mbg>
+
+// RESOURCE DEFINITIONS 
+
+RESOURCE RSS_SIGNATURE { }
+
+RESOURCE TBUF { buf = "FriendlyName"; }
+
+RESOURCE EIK_APP_INFO
+    {
+    menubar = r_friendlyname_menubar;
+    cba = R_AVKON_SOFTKEYS_OPTIONS_EXIT;     
+    }
+
+//----------------------------------------------------
+//   
+//    r_friendlyname_menubar
+//
+//----------------------------------------------------
+//
+RESOURCE MENU_BAR r_friendlyname_menubar
+    {
+    titles =
+        {
+        MENU_TITLE 
+            { 
+            menu_pane = r_friendlyname_menu; 
+            }
+        };
+    }
+
+//----------------------------------------------------
+//   
+//    r_friendlyname_menu
+//
+//----------------------------------------------------
+//
+RESOURCE MENU_PANE r_friendlyname_menu
+    {
+    items =
+        {
+        MENU_ITEM 
+            { 
+            command = EFriendlyNameCmdChangeName; 
+            txt = qtn_friendlyname_menu_change_name; 
+            },
+        MENU_ITEM 
+            { 
+            command = EAknCmdExit; 
+            txt = qtn_friendlyname_menu_exit; 
+            }
+        };
+    }
+    
+//----------------------------------------------------------------------
+//  
+//    r_friendlyname_device_name_query
+//
+//----------------------------------------------------------------------
+//
+RESOURCE DIALOG r_friendlyname_device_name_query 
+    {
+	flags = EGeneralQueryFlags;
+	buttons = R_AVKON_SOFTKEYS_OK_CANCEL;
+	items = 
+	    {
+		DLG_LINE 
+		    {
+			type = EAknCtQuery;
+			id = EGeneralQuery;
+			control = AVKON_DATA_QUERY 
+			    {
+				layout = EDataLayout;
+				label = "Enter name:";
+				control = EDWIN 
+				    {
+					//width = 20;
+					lines = 1;
+					maxlength = 0x40;
+				    };
+			    };
+		    }
+	    };
+    }
+    
+// End of File

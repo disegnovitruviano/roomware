@@ -1,0 +1,16 @@
+/*
+* ============================================================================
+*  Name        : bld.inf
+*  Part of     : FriendlyName
+*  Created     : 29.04.2007 by Payu Sergey and Valerie Ivangorodsky
+*  Description : This file provides the information required for building the
+                 whole of a FriendlyName.
+*  Version     : 1.0
+* ============================================================================
+*/
+
+PRJ_MMPFILES
+
+FriendlyName.mmp
+
+// End of File

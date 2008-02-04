@@ -1,0 +1,23 @@
+/*
+* ============================================================================
+*  Name        : FriendlyName.rss
+*  Part of     : FriendlyName
+*  Created     : 29.04.2007 by Payu Sergey and Valerie Ivangorodsky
+*  Description : This is a localisation file for FriendlyName.
+*                A .loc file is the one and only place where the logical
+*                strings to be localised are defined. 
+*  Version     : 1.0
+* ============================================================================
+*/
+
+// LOCALISATION STRINGS
+
+// menu
+#define qtn_friendlyname_menu_change_name "Change Name"
+#define qtn_friendlyname_menu_exit "Exit"
+
+// caption
+#define qtn_app_caption_string "FriendlyName"
+#define qtn_app_short_caption_string "FName"
+
+// End of File

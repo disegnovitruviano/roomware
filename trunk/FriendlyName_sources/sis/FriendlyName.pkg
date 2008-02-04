@@ -1,0 +1,18 @@
+; FriendlyName.pkg
+
+; Languages
+&EN
+
+; Header
+#{"FriendlyName"},(0x041c1f1b), 0, 1, 1
+
+; Platform compatibility
+(0x101F7960), 0, 0, 0, {"Series60ProductID"}
+
+; Target
+"C:\Symbian\7.0s\Series60_v21\Epoc32\release\thumb\UREL\FriendlyName.app"-"!:\system\apps\FriendlyName\FriendlyName.app"
+"C:\Symbian\7.0s\Series60_v21\Epoc32\data\z\system\apps\FriendlyName\FriendlyName.aif"-"!:\system\apps\FriendlyName\FriendlyName.aif"
+"C:\Symbian\7.0s\Series60_v21\Epoc32\data\z\system\apps\FriendlyName\FriendlyName.rSC"-"!:\system\apps\FriendlyName\FriendlyName.rSC"
+"C:\Symbian\7.0s\Series60_v21\Epoc32\data\z\system\apps\FriendlyName\FriendlyName_caption.rSC"-"!:\system\apps\FriendlyName\FriendlyName_caption.rSC"
+
+

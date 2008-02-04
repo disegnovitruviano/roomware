@@ -1,0 +1,20 @@
+/*
+* ============================================================================
+*  Name        : FriendlyName_caption.rss
+*  Part of     : FriendlyName
+*  Created     : 29.04.2007 by Payu Sergey and Valerie Ivangorodsky
+*  Description : Caption file for FriendlyName.
+*  Version     : 1.0
+* ============================================================================
+*/
+
+#include "FriendlyName.loc"
+#include <apcaptionfile.rh>
+
+RESOURCE CAPTION_DATA
+    {
+    caption = qtn_app_caption_string;
+    shortcaption = qtn_app_short_caption_string;
+    }
+    
+// End of File
