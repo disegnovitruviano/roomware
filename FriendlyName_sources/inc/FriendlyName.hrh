@@ -1,0 +1,23 @@
+/*
+* ============================================================================
+*  Name        : FriendlyName resource header file FriendlyName.hrh
+*  Part of     : FriendlyName
+*  Created     : 29.04.2007 by Payu Sergey and Valerie Ivangorodsky
+*  Description : This file contains declarations for constants 
+*                of FriendlyName. The file can be included in C++ 
+*                or resource file.
+*  Version     : 1.0
+* ============================================================================
+*/
+
+#ifndef FRIENDLYNAME_HRH
+#define FRIENDLYNAME_HRH
+
+enum TFriendlyNameCommandIds
+    {
+    EFriendlyNameCmdChangeName = 0x600
+    };
+
+#endif // FRIENDLYNAME_HRH
+
+// End of File

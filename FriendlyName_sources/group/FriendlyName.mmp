@@ -1,0 +1,39 @@
+/*
+* ============================================================================
+*  Name        : FriendlyName.mmp
+*  Part of     : FriendlyName
+*  Created     : 29.04.2007 by Payu Sergey
+*  Description : This is the project specification file for FriendlyName.
+*  Version     : 1.0
+*  Copyright   : Payu Sergey
+* ============================================================================
+*/
+TARGET                                  FriendlyName.app 
+TARGETTYPE                              app 
+UID                                     0x100039CE 0x041c1f1b 
+TARGETPATH                              \system\apps\FriendlyName 
+SOURCEPATH                              ..\data 
+RESOURCE                                FriendlyName.rss 
+RESOURCE                                FriendlyName_caption.rss 
+
+SOURCEPATH                              ..\src 
+SOURCE                                  FriendlyNameApp.cpp 
+SOURCE                                  FriendlyNameAppui.cpp 
+SOURCE                                  FriendlyNameDocument.cpp 
+SOURCE                                  FriendlyNameContainer.cpp 
+
+LANG                                    SC 
+USERINCLUDE                             . 
+USERINCLUDE                             ..\inc 
+SYSTEMINCLUDE                           . 
+SYSTEMINCLUDE                           \epoc32\include 
+/* [+] */ LIBRARY                       bteng.lib 
+// [-]    LIBRARY                       esock.lib 
+LIBRARY                                 aknskins.lib 
+LIBRARY                                 euser.lib 
+LIBRARY                                 apparc.lib 
+LIBRARY                                 cone.lib 
+LIBRARY                                 eikcore.lib 
+LIBRARY                                 eikcoctl.lib 
+LIBRARY                                 avkon.lib 
+AIF                                     FriendlyName.aif ..\aif FriendlyNameaif.rss c8 context_pane_icon.bmp context_pane_icon_mask.bmp list_icon.bmp list_icon_mask.bmp 

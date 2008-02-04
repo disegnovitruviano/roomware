@@ -1,0 +1,22 @@
+/*
+* ============================================================================
+*  Name        : FriendlyNameaif.rss
+*  Part of     : FriendlyName
+*  Created     : 29.04.2007 by Payu Sergey
+*  Description : RSS for creating the aif file for FriendlyName.
+*  Version     : 1.0
+*  Copyright   : Payu Sergey
+* ============================================================================
+*/
+
+#include <aiftool.rh>
+
+RESOURCE AIF_DATA
+    {
+    app_uid = 0x041c1f1b;
+    num_icons = 2;
+    embeddability = KAppNotEmbeddable;
+    newfile = KAppDoesNotSupportNewFile;
+    }
+
+// End of File
