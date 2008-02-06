@@ -8,15 +8,12 @@
 include_once("config.inc.php");
 include_once("functions.inc.php");
 
-
 // Open pointer to XML
-$debug=true;
 if ($debug) {
-	$file = "http://www.vivango.nl/flickrpickr/example_scan.xml";
+	$file = "example_scan.xml";
 	$fp = fopen($file, "r");
 } else {
 	$fp = fsockopen($roomware_server, $roomware_server_port, $errno, $errstr);
- 	$file = "http://".$roomware_server.":".$roomware_server_port;
   if (!$fp) {
      echo "ERROR: $errno - $errstr<br />\n";
   } else {
@@ -25,68 +22,40 @@ if ($debug) {
 }
 
 // Collect data
-$xmldata = "";
-if($fp)
-{
- while (!feof($fp)) {
-   $xmldata .= fread($fp, 8192);
- }
+$data = fread($fp, 2600);
 fclose($fp);
-}
+preg_match_all("/\<device\>(.*)\<\/device\>/i", $data, $matches);
 
-print $xmldata;flush(); //test if xml was read
-
-//preg_match_all("/\<device\>(.*)\<\/device\>/i", $data, $matches);
-//print_r($matches);flush();
 $latest_scan = array();
 
-
-//use simplexml comes with php 5
-
-//check if file exists  
-if (url_exists($file)) {
-    $xml = simplexml_load_file($file);
-} else {
-    exit('Failed to open '.$file);
-}
-//$xml = simplexml_load_file($file);
-/*print attributes*/
-print("<pre>");
-print_r($xml);
-print("</pre>");
-
-
-/*
-foreach ($xml->device as $device) {
-   echo $device->id, '<br />';
-   echo $device->name, '<br />';
-   echo $device->type, '<br />';
-   echo $device->event, '<br />';
-   echo $device->data, '<br />';
-   echo $device->time, '<br />';
-	 echo '<br />';
-}
-*/
-
 // Put it in the db
-$i=0;
 
-foreach ($xml->device as $device) {
-print $i++;flush();
+foreach($matches[0] as $val) {
+
+	$arr = explode("<",$val);
+	$id = str_replace("id>","",$arr[1]);
+	$name = str_replace("name>","",$arr[3]);
+	$type = str_replace("type>","",$arr[5]);
+	$event = str_replace("event>","",$arr[7]);
+	$data = str_replace("data>","",$arr[9]);
+	//$time = str_replace("time>","",$arr[11]); // scanner does not seem to return the time
+  	$time = time();
   
-  	if (!empty($device->name) && $device->name != '(null)') // the scanner might return (null) for some devices, ignore those
+  print $id."=id<BR>".$name."=name<BR>".$type."=type<BR>".$event."=event<BR>";flush()
+  
+  	if (!empty($name) && $name != '(null)') // the scanner might return (null) for some devices, ignore those
   	{
   
-		print $device->name."=name<br />"; // just some debugging info for when you are looking at parser output
+		print $name."<br />"; // just some debugging info for when you are looking at parser output
 		
-		$clean_name = mysql_real_escape_string(utf8_decode(strtolower($device->name)));
+		$clean_name = mysql_real_escape_string(utf8_decode(strtolower($name)));
 		array_push($latest_scan, $clean_name); // save for later
 	
 		$sql = "SELECT id 
 				FROM	events
-				WHERE	mac_id = '" . $device->id . "' AND 
-						type = '" . $device->type . "'  AND 
-						event = '" . $device->event . "'  AND 
+				WHERE	mac_id = '" . $id . "' AND 
+						type = '" . $type . "'  AND 
+						event = '" . $event . "'  AND 
 						name = '" . $clean_name . "'"; 
 		$result = mysql_query($sql) or die ($sql . "<br />" . mysql_error());
 		
@@ -94,20 +63,18 @@ print $i++;flush();
 		{
 			$sql = "INSERT
 					INTO	events
-					SET		mac_id = '" . $device->id . "',
-							type = '" . $device->type . "',
-							event = '" . $device->event . "',
-							data = '" . utf8_decode($device->data) . "',
+					SET		mac_id = '" . $id . "',
+							type = '" . $type . "',
+							event = '" . $event . "',
+							data = '" . utf8_decode($data) . "',
 							name = '" . $clean_name . "',
-							timestamp = '" . $device->time . "'";
+							timestamp = '" . $time . "'";
 			mysql_query($sql) or die ($sql . "<br />" . mysql_error());
 	
 			// if we have someone with a name recognized by Flickr get the last 15 pictures
-print "cleanname".$clean_name."<BR>";
-	print (string)getNSID($clean_name);
 			if($nsid = getNSID($clean_name)) 
 			{
-print "yep";
+
 				// Get the photo data
 				$params = array(
 					'api_key'	 => $flickr_api_key,
@@ -123,12 +90,9 @@ print "yep";
 				}
 			
 				$url = "http://api.flickr.com/services/rest/?".implode('&', $encoded_params);
-				print $url; flush();
 				$rsp = file_get_contents($url);
 				$rsp_obj = unserialize($rsp);
 				
-				print "a";print_r($rsp_obj);				print "a";
-
 				// save the pictures to the database so we won't have to poll Flickr for them again
 				foreach($rsp_obj['photos']['photo'] as $photo)
 				{
@@ -212,6 +176,7 @@ print "yep";
 		}
   	}
 }
+
 // clean up the database
 $sql = "SELECT name, timestamp, id FROM events";
 $result = mysql_query($sql) or die ($sql . "<br />" . mysql_error());
