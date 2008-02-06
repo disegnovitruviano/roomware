@@ -70,7 +70,7 @@ public class Module extends AbstractModule implements DiscoveryListener {
 			throw new RoomWareException("Could not init bluetooth!");
 		}
 
-		logger.info("update-time-interval = " + scanInterval);
+		logger.info("update-interval-time = " + scanInterval);
 		logger.info("device-clear-time = " + clearTime);
 		logger.info("always-ask-name = " + alwaysAsk);
 
