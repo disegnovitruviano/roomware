@@ -12,31 +12,11 @@ include_once("functions.inc.php");
 // Open pointer to XML
 if ($debug) {
 	$file = "http://localhost/example_scan.xml";
-	$fp = fopen($file, "r");
 } else {
-	$fp = fsockopen($roomware_server, $roomware_server_port, $errno, $errstr);
  	$file = $roomware_server.":".$roomware_server_port;
-  if (!$fp) {
-     echo "ERROR: $errno - $errstr<br />\n";
-  } else {
-     fwrite($fp, "\n");
-  }
 }
 
 // Collect data
-$xmldata = "";
-if($fp)
-{
- while (!feof($fp)) {
-   $xmldata .= fread($fp, 8192);
- }
-fclose($fp);
-}
-
-print $xmldata;flush(); //test if xml was read
-
-//preg_match_all("/\<device\>(.*)\<\/device\>/i", $data, $matches);
-//print_r($matches);flush();
 $latest_scan = array();
 
 
@@ -68,10 +48,8 @@ foreach ($xml->device as $device) {
 */
 
 // Put it in the db
-$i=0;
 
 foreach ($xml->device as $device) {
-print $i++;flush();
   
   	if (!empty($device->name) && $device->name != '(null)') // the scanner might return (null) for some devices, ignore those
   	{
