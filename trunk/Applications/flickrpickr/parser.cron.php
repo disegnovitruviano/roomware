@@ -10,13 +10,12 @@ include_once("functions.inc.php");
 
 
 // Open pointer to XML
-$debug=true;
 if ($debug) {
-	$file = "http://www.vivango.nl/flickrpickr/example_scan.xml";
+	$file = "http://localhost/example_scan.xml";
 	$fp = fopen($file, "r");
 } else {
 	$fp = fsockopen($roomware_server, $roomware_server_port, $errno, $errstr);
- 	$file = "http://".$roomware_server.":".$roomware_server_port;
+ 	$file = $roomware_server.":".$roomware_server_port;
   if (!$fp) {
      echo "ERROR: $errno - $errstr<br />\n";
   } else {
