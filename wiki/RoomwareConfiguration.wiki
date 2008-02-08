@@ -1,0 +1,52 @@
+#summary How to configure your roomware server
+
+= Introduction =
+
+So you've downloaded all those good looking JARs and now your looking to play with them right? We'll you can't right away. First you'll need to configure your server a bit.
+
+Were working on a system taht will automatically load any modules you might want to use but for now it's a bit of typing thats needed.
+
+
+= Details =
+
+This instruction presumes that you have already setup your environemnt variables and copied the module and communicator JAR files into their respective directories.
+
+In your Server/conf/ directory you'll find the following congiguration file; roomware.conf
+
+In a standard setup with the bluetooth module and the http communicator loaded your config file will have to include the following lines at a minimum:
+
+{{{
+# C O M M U N I C A T O R S
+#
+
+httpcomm.Communicator
+httpcomm-class: httpcomm.Communicator
+console.Communicator
+console-class: console.Communicator
+
+# M O D U L E S
+#
+# First, you must define a name for every instance of a module to be loaded.
+
+bluemod.Module
+bluemod-class: bluemod.Module
+
+#modules:	blue
+#
+# Now we do the same for the communicators
+#
+#communicators:	console, http
+
+modules: bluemod
+communicators: httpcomm
+
+# stop-on-error: 'false' || 'true'
+#
+stop-on-error:	true
+
+}}}
+
+With this config and the JARs in place you should be well on your way. Now just follow along with the instal guide again: http://roomwareproject.org/pages/download
+
+have fun!
+
