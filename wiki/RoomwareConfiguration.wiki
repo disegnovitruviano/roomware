@@ -15,38 +15,34 @@ In your Server/conf/ directory you'll find the following congiguration file; roo
 
 In a standard setup with the bluetooth module and the http communicator loaded your config file will have to include the following lines at a minimum:
 
+*updated: to account for Tom's suggestion in the comments*
+
 {{{
 # C O M M U N I C A T O R S
-#
-
-httpcomm.Communicator
-httpcomm-class: httpcomm.Communicator
-console.Communicator
-console-class: console.Communicator
+console-class:	console.Communicator
+httpcomm-class:	httpcomm.Communicator
 
 # M O D U L E S
-#
-# First, you must define a name for every instance of a module to be loaded.
+bluemod-class:	bluemod.Module
 
-bluemod.Module
-bluemod-class: bluemod.Module
+# PARAMETERS - AS MANY AS DESIRED
+#
+#siwa-message:	Hello, World!
+bluemod-update-interval-time = 20
+bluemod-device-clear-time = 30
 
-#modules:	blue
-#
-# Now we do the same for the communicators
-#
-#communicators:	console, http
+
+# S E R V E R
 
 modules: bluemod
-communicators: httpcomm
+communicators: console, httpcomm
 
+#
 # stop-on-error: 'false' || 'true'
 #
 stop-on-error:	true
-
 }}}
 
 With this config and the JARs in place you should be well on your way. Now just follow along with the instal guide again: http://roomwareproject.org/pages/download
 
 have fun!
-
