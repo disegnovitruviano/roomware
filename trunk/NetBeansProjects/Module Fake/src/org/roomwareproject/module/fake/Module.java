@@ -33,10 +33,13 @@ public class Module extends AbstractModule {
 
 	protected void init() throws RoomWareException {
             String deviceNameList = properties.getProperty("devices");
-            String[] deviceNames = deviceNameList.split(",");
-            for(String deviceName: deviceNames) {
-                Device d = new Device(new FooDeviceAddress(deviceName.trim()));
-                d.setFriendlyName(deviceName.trim());
+            String[] deviceAddressNames = deviceNameList.split(",");
+            for(String deviceAddressName: deviceAddressNames) {
+                deviceAddressName = deviceAddressName.trim();
+                if(deviceAddressName.equals("")) continue;
+                Device d = new Device(new FooDeviceAddress(deviceAddressName.trim()));
+                String name = properties.getProperty(deviceAddressName + "-name");
+                if(name != null) d.setFriendlyName(name.trim());
                 devices.add(d);
             }
         }
