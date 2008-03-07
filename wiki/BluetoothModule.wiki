@@ -1,0 +1,46 @@
+#summary description of the bluetooth module
+#labels Phase-Deploy,Featured
+
+= Introduction =
+
+
+= Install =
+
+1. Add the [BluetoothModule Module_Bluetooth]-1.0.0.jar to your modules directory.
+
+2. Add the RoomWare_Server-1.0.0.jar to your lib directory.
+
+3. Add the [http://code.google.com/p/bluecove/ BlueCove]-2.0.2.jar to your lib directory. (Or any other JSR-082).
+
+= Configuration =
+
+1. Add a new module to the roomware server configuration (eg. 'blue'):
+   `modules: <list, of, previous, modules>, blue`
+
+2. Load the module class for the 'blue' module:
+   `blue-class: org.roomwareproject.module.bluetooth.Module`
+
+3. You can configure the next options:
+   a. scan-interval-time
+
+   Sets the interval time. After each interval a new device inquiry will start.
+   Default value is 40 seconds. Since a device inquiy takes around 11 seconds,
+   using values below 15 seconds could have issues (if you also try name lookup).
+
+   `blue-scan-interval-time: 30`
+ 
+   b. device-clear-time
+
+   Device don't actively broadcast: "I'm gone!" - - - hmmm.. if they are gone, they can't broadcast... - - - . So when is a device gone? Well the module will think it is gone after some  default seconds. To adjust this value for your needs do:
+
+    `blue-device-clear-time: 40`
+
+
+    c. name-lookup-policy
+
+    If you don't want to lookup the names specify _never_. If you only need to know the name and you are not interested in changes, specify _once_. You can also ask every time the name of the device, specify _always_.
+
+    Note: name lookup is only done in the idle time between the inquiry length (11 secs) and the time left to the new interval. If you specify the interval time as only 12 seconds, there will be only 1 name lookup.
+
+    `blue-name-lookup-policy: once`
+ 
