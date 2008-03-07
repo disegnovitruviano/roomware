@@ -27,8 +27,8 @@ your mobile._
 2. Load the module class for the 'fake' module:
    fake-class: *org.roomwareproject.module.fake.Module*
 
-3. Define the devices:
+3. You *must* define the devices:
    fake-devices: test1, 0123456789
 
-4. You can add a friendly name to a device:
+4. You *can* add a friendly name to a device:
    fake-0123456789-name: my simple demo device that has address 0123456789
