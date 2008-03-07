@@ -7,7 +7,7 @@ This is really a short description of the fake module.
 
 = Install =
 
-1. Add the [ModuleFake Module_Fake]-1.0.1.jar to your modules directory.
+1. Add the [FakeModule Module_Fake]-1.0.1.jar to your modules directory.
 
 2. Add the RoomWare_Server-1.0.0.jar to your lib directory.
 
