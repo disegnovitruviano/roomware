@@ -3,7 +3,15 @@
 
 = Introduction =
 
-This is really a short description of the fake module.
+This is really a short description of the fake module, quoted from email:
+
+_While working on a communicator, you probably want to test some
+special cases with some devices. E.g. no devices, 1 device or many
+devices. Or maybe devices with particular names (I needed it for this
+case). You could ofcourse try to grab 10+ bluetooth devices and do it,
+but maybe to edited only the roomware server configuration file is
+more easy then constantly changing your bluetooth friendly name on
+your mobile._
 
 = Install =
 
