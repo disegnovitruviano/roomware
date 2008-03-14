@@ -17,8 +17,8 @@ Here you can download the core, the !RoomWare server. It doesn't contain any mod
 
 === Install Notes ===
 
-1. Configure your environment; You must edit the file in `conf/setenv`.
-2. Optional: Configure the !RoomWare Server; You can configure the server by editing `conf/roomware.conf`.
+  # Configure your environment; You must edit the file in `conf/setenv`.
+  # Optional: Configure the !RoomWare Server; You can configure the server by editing `conf/roomware.conf`.
 
 For more information on the configuration options check out RoomwareConfiguration
 
@@ -40,9 +40,9 @@ You can download the !RoomWare Server 1.0 beta release from our [http://code.goo
 
 === Install Howto ===
 
-1. Copy the module; You must copy the module classes (jar file located in build dir) into the roomware server module directory `Server/modules`.
-2. Copy any dependencies; Now you need the dependencies copied into the `Server/lib` dir. These are located in the lib dir of the module tree.
-3. Edit the !RoomWare Server configuration; This must be done in the file `Server/conf/roomware.conf`.
+  # Copy the module; You must copy the module classes (jar file located in build dir) into the roomware server module directory `Server/modules`.
+  # Copy any dependencies; Now you need the dependencies copied into the `Server/lib` dir. These are located in the lib dir of the module tree.
+  # Edit the !RoomWare Server configuration; This must be done in the file `Server/conf/roomware.conf`.
 
 For more information on the configuration options check out RoomwareConfiguration
 
@@ -61,10 +61,10 @@ You can download our own Bluetooth Module 0.1 from our [http://code.google.com/p
 
 ===Install Howto===
 
-1. Copy the communicator
+  # Copy the communicator
 You must copy the communicator classes (jar file located in build dir) into the roomware server communicator directory Server/communicators.
 
-2. Edit the !RoomWare Server configuration
+  # Edit the !RoomWare Server configuration
 This must be done in the file `Server/conf/roomware.conf`.
 
 ===Network Communicator (XML)===
