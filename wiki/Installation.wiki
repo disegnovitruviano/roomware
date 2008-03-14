@@ -61,11 +61,9 @@ You can download our own Bluetooth Module 0.1 from our [http://code.google.com/p
 
 ===Install Howto===
 
-  # Copy the communicator
-You must copy the communicator classes (jar file located in build dir) into the roomware server communicator directory Server/communicators.
+  # Copy the communicator; You must copy the communicator classes (jar file located in build dir) into the roomware server communicator directory Server/communicators.
 
-  # Edit the !RoomWare Server configuration
-This must be done in the file `Server/conf/roomware.conf`.
+  # Edit the !RoomWare Server configuration; This must be done in the file `Server/conf/roomware.conf`.
 
 ===Network Communicator (XML)===
 
