@@ -1,8 +1,8 @@
-#summary How to install the !RoomWare server on your mac or pc.
+#summary How to install the RoomWare server on your mac or pc.
 
 = Introduction =
 
-The !RoomWare server code is currently released in a beta stage under the MIT license. Feel free to download and experiment. The zip package includes installation documentation, if you have any other questions or nee more help please join us on the [http://groups.google.com/group/roomware !RoomWare mailing list]. 
+The !RoomWare server code is currently released in a beta stage under the MIT license. Feel free to download and experiment. The zip package includes installation documentation, if you have any other questions or nee more help please join us on the [http://groups.google.com/group/roomware RoomWare mailing list]. 
 
 = Howto: !RoomWare installation =
 
