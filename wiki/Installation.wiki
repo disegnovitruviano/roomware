@@ -29,8 +29,8 @@ For more information on the configuration options check out RoomwareConfiguratio
 
 === Dependencies ===
 
-- Java Virtual Machine (JRE) 1.5; You need at least Java Virtual Machine 1.5 to run the compiled byte code.
-- Optional: Java Compiler (JDK) 1.5; When compiling the Java Development Kit should be at least version 1.5.
+* Java Virtual Machine (JRE) 1.5; You need at least Java Virtual Machine 1.5 to run the compiled byte code.
+* Optional: Java Compiler (JDK) 1.5; When compiling the Java Development Kit should be at least version 1.5.
 
 === Download ===
 
