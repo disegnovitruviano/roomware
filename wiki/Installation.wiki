@@ -80,7 +80,7 @@ Please try it out. Use it. Ask questions. Email us. We will help you and make a 
 
 =Demo Applications=
 
-==FlickrPickr==
+==!FlickrPickr==
 
 The !FlickrPickr is our first demo application and highlights the use of the Bluetooth module that comes with the standard !RoomWare server installation. It's a basic web application built using PHP & MySQL and it uses the Bluetooth device data obtained from the !RoomWare server to display the Flickr avatars and the latest pictures of the people present in the room based on their device's Bluetooth name.
 
@@ -88,7 +88,7 @@ The !FlickrPickr is our first demo application and highlights the use of the Blu
 
 You can download our  flickrpickr-0.2.zip from our [http://code.google.com/p/roomware/downloads/list Google Code downloads page]
 
-==HyvesGallery==
+==!HyvesGallery==
 
 The !HyvesGallery is the dutch stepchild of the !FlickrPickr. Using a similar principal as the !FlickrPickr this app downloads and presents photos from people's Hyves profile instead. If you are unfamiliar with Hyves; it's the largest social networks in the Netherlands.
 
