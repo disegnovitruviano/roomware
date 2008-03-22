@@ -1,5 +1,23 @@
 #summary This is the RoomWare Server all-in-one howto
+#labels Featured
 
-= Introduction =
+= How to run =
 
-You have downloaded the RoomWare Se ... 
+==Windows==
+1. open a Command Prompt
+2. type 'bin\run.bat'
+
+
+==Linux==
+1. open a Terminal
+2. type 'bin/run'
+
+
+= What's included? =
+1. RoomWare Server Specification
+2. RoomWare Server Implementation
+3. Bluetooth Module
+4. Rfid Module
+5. Fake Module
+6. Console Communicator
+7. Http Communicator
