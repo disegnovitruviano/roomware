@@ -3,13 +3,17 @@
 
 = How to run =
 
+First unzip all the files, then:
+
 ==Windows==
   # open a Command Prompt
+  # go to the unzipped directory
   # type 'bin\run.bat'
 
 
-==Linux==
+==OSX==
   # open a Terminal
+  # go to the unzipped directory
   # type 'bin/run'
 
 
