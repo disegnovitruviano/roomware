@@ -1,5 +1,5 @@
 #summary This is the RoomWare Server all-in-one howto
-#labels Featured
+#labels Featured,Phase-Deploy
 
 = How to run =
 
