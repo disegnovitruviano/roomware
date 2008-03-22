@@ -1,5 +1,5 @@
 #summary description of the bluetooth module
-#labels Phase-Deploy,Featured
+#labels Phase-Deploy
 
 = Introduction =
 
