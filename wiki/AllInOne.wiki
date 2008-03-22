@@ -1,0 +1,9 @@
+How to use?
+
+1. Unzip the zip file.
+
+2. Go to the main folder: program/.
+
+3. On windows hit: 'bin\run.bat'. On macosx hit: 'bin\run'.
+
+
