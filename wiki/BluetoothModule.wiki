@@ -21,13 +21,13 @@
    `blue-class: org.roomwareproject.module.bluetooth.Module`
 
 3. You can configure the next options:
-   a. scan-interval-time
+   a. update-interval-time
 
    Sets the interval time. After each interval a new device inquiry will start.
    Default value is 40 seconds. Since a device inquiy takes around 11 seconds,
    using values below 15 seconds could have issues (if you also try name lookup).
 
-   `blue-scan-interval-time: 30`
+   `blue-update-interval-time: 30`
  
    b. device-clear-time
 
