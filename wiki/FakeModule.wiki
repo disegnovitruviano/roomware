@@ -1,5 +1,5 @@
 #summary description of the fake module
-#labels Phase-Deploy,Featured
+#labels Phase-Deploy
 
 = Introduction =
 
