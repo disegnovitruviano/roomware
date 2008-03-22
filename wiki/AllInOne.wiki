@@ -4,20 +4,20 @@
 = How to run =
 
 ==Windows==
-1. open a Command Prompt
-2. type 'bin\run.bat'
+  # open a Command Prompt
+  # type 'bin\run.bat'
 
 
 ==Linux==
-1. open a Terminal
-2. type 'bin/run'
+  # open a Terminal
+  # type 'bin/run'
 
 
 = What's included? =
-1. RoomWare Server Specification
-2. RoomWare Server Implementation
-3. Bluetooth Module
-4. Rfid Module
-5. Fake Module
-6. Console Communicator
-7. Http Communicator
+  # !RoomWare Server Specification
+  # !RoomWare Server Implementation
+  # Bluetooth Module
+  # Rfid Module
+  # Fake Module
+  # Console Communicator
+  # Http Communicator
