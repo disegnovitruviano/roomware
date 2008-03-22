@@ -1,4 +1,5 @@
 #summary How to install the RoomWare server on your mac or pc.
+#labels Featured
 
 = Introduction =
 
