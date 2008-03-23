@@ -7,10 +7,10 @@ While working on a communicator, you'll probably want to test a number of
 use-cases with devices. 
 For instance:
 
-    - no devices
-    - 1 device 
-    - many devices
-    - devices with particular names (I needed it for this case)  
+    * no devices
+    * 1 device 
+    * many devices
+    * devices with particular names (I needed it for this case)  
 
 
 Edit the roomware server configuration file in combination with using the 'fake device module', to specify a list of devices for testing purposes. Following this technique can be useful during application development as it saves some time rather than, during testing, having to sniff each time for 10+ bluetooth devices, or having to constantly press the bluetooth "on" and then "off" button/setting on your mobile/cell phone to affect the bluetooth [http://www.ir.dcu.ie/343/ friendly name].
