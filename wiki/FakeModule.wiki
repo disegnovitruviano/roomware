@@ -1,21 +1,23 @@
-#summary description of the fake module
-#labels Phase-Deploy
-
+#labels Phase-Deploy,testing
 = Introduction =
 
-This is really a short description of the fake module, quoted from email:
+This is really a short description of the 'fake device' module:
 
-_While working on a communicator, you probably want to test some
-special cases with some devices. E.g. no devices, 1 device or many
-devices. Or maybe devices with particular names (I needed it for this
-case). You could ofcourse try to grab 10+ bluetooth devices and do it,
-but maybe to edited only the roomware server configuration file is
-more easy then constantly changing your bluetooth friendly name on
-your mobile._
+While working on a communicator, you'll probably want to test a number of
+use-cases with devices. 
+For instance:
+
+    - no devices
+    - 1 device 
+    - many devices
+    - devices with particular names (I needed it for this case)  
+
+
+Edit the roomware server configuration file in combination with using the 'fake device module', to specify a list of devices for testing purposes. Following this technique can be useful during application development as it saves some time rather than, during testing, having to sniff each time for 10+ bluetooth devices, or having to constantly press the bluetooth "on" and then "off" button/setting on your mobile/cell phone to affect the bluetooth<a href="http://www.ir.dcu.ie/343/">friendly name</a>.
 
 = Install =
 
-1. Add the [FakeModule Module_Fake]-1.0.1.jar to your modules directory.
+1. Add the 'fake device' module(Module_Fake)-1.0.1.jar to your modules directory.
 
 2. Add the RoomWare_Server-1.0.0.jar to your lib directory.
 
@@ -24,11 +26,11 @@ your mobile._
 1. Add a new module to the roomware server configuration (eg. 'fake'):
    modules: _list, of, previous, modules_, *fake*
 
-2. Load the module class for the 'fake' module:
+2. Load the module class for the 'fake device' module:
    fake-class: *org.roomwareproject.module.fake.Module*
 
 3. You *must* define the devices:
    fake-devices: test1, 0123456789
 
-4. You *can* add a friendly name to a device:
+4. You *can* add a <a href="http://www.ir.dcu.ie/343/">friendly name</a> to a device:
    fake-0123456789-name: my simple demo device that has address 0123456789
