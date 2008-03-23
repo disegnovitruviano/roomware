@@ -4,7 +4,7 @@
 
 So you've downloaded all those good looking JARs and now your looking to play with them right? We'll you can't right away. First you'll need to configure your server a bit.
 
-Were working on a system taht will automatically load any modules you might want to use but for now it's a bit of typing thats needed.
+Were working on a system that will automatically load any modules you might want to use but for now it's a bit of typing thats needed.
 
 
 = Details =
