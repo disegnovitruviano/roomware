@@ -6,11 +6,11 @@
 
 = Install =
 
-1. Add the [BluetoothModule Module_Bluetooth]-1.0.0.jar to your modules directory.
+The allinone donwload contains this module and a JSR-82 implementation for Windows and OSX, you probably don't need to do this unless you are sure about it.
 
-2. Add the RoomWare_Server-1.0.0.jar to your lib directory.
+1. Put the !Module_Bluetooth-1.0.0.jar in your lib directory of your roomware server tree.
 
-3. Add the [http://code.google.com/p/bluecove/ BlueCove]-2.0.2.jar to your lib directory. (Or any other JSR-082).
+2. Add the [http://code.google.com/p/bluecove/ BlueCove]-2.0.2.jar to your lib directory. (Or any other JSR-082).
 
 = Configuration =
 
