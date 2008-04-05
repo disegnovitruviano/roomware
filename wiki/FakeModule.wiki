@@ -19,7 +19,7 @@ Edit the roomware server configuration file in combination with using the 'fake 
 
 The allinone download contains this module, you probably don't need to do this unless you are sure about it.
 
-1. Put the file [FakeModule Module_Fake]-1.0.1.jar to your lib directory of the roomware server tree.
+1. Put the file !Module_Fake-1.0.1.jar to your lib directory of the roomware server tree.
 
 
 = Configuration =
