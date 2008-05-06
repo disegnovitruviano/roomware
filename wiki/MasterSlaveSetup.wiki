@@ -24,11 +24,17 @@ Once you've set this up you can move onto the slave(s). For each slave server ad
 
   `communicators: console, http, slave`
 
-  `slave-class: org.roomwareproject.communicator.roomware.Communicator`
+In the above example the slave server is running a console and http communicator to look at the data it is collecting locally and a slave communicator to send it's data off to a master server on the IP address 192.168.2.101 
+
   `slave-host: 192.168.2.101`
+
+and the default port number.
+
   `#slave-port: 4003`
 
-In the above example the salve server is running a console and http communicator to look at the data it is collecting locally and a slave communicator to send it's data off to a master server on the IP address 192.168.2.101 and the default port number.
+to make sure the slave identifier actually loads the communicator you'll have to attach it to the class as well.
+
+  `slave-class: org.roomwareproject.communicator.roomware.Communicator`
 
 
   
