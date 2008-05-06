@@ -22,7 +22,7 @@ The bluetooth module is setup as described in the BluetoothModule page, the mast
 
 Once you've set this up you can move onto the slave(s). For each slave server add the following to the configuration.
 
-  `communicators: console, http, slave'
+  `communicators: console, http, slave`
 
   `slave-class: org.roomwareproject.communicator.roomware.Communicator`
   `slave-host: 192.168.2.101`
