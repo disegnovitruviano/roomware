@@ -15,31 +15,53 @@ In your Server/conf/ directory you'll find the following congiguration file; roo
 
 In a standard setup with the bluetooth module and the http communicator loaded your config file will have to include the following lines at a minimum:
 
-*updated: to account for Tom's suggestion in the comments*
-
 {{{
-# C O M M U N I C A T O R S
-console-class:	console.Communicator
-httpcomm-class:	httpcomm.Communicator
+# comma seperated list of modules to load
+modules: bluetooth, master
 
-# M O D U L E S
-bluemod-class:	bluemod.Module
+master-class: org.roomwareproject.module.roomware.Module
 
-# PARAMETERS - AS MANY AS DESIRED
-#
-#siwa-message:	Hello, World!
-bluemod-update-interval-time = 20
-bluemod-device-clear-time = 30
+# bluetooth class definition
+bluetooth-class: org.roomwareproject.module.bluetooth.Module
+bluetooth-name-lookup-policy: always
+bluetooth-update-interval-time: 30
+bluetooth-device-clear-time: 160
+bluetooth-zone: hybrid2
+bluetooth-stop-on-nerrors: 0
 
+# fake class definition
+fake-class: org.roomwareproject.module.fake.Module
+fake-devices: 0123456789
+fake-0123456789-name: test
 
-# S E R V E R
+# comma seperated list of communicators to load
+communicators: console, http, post
 
-modules: bluemod
-communicators: console, httpcomm
+slave-class: org.roomwareproject.communicator.roomware.Communicator
+slave-host: 192.168.2.101
+#slave-port: port number
 
+roomware-class: org.roomwareproject.module.roomware.Module
+
+# post class definition
+post-class: org.roomwareproject.communicator.post.Communicator
+post-host: 192.168.2.152
+post-port: 9019
+post-path: /eventlist.php
+
+# console class definition
+console-class: org.roomwareproject.communicator.console.Communicator
+
+# http class definition
+http-class: org.roomwareproject.communicator.http.Communicator
+
+# admin class definition
+admin-class: org.roomwareproject.communicator.admin.Communicator
+
+# You can configure the roomware server to exit if there is a error detected
+# during the startup.
 #
 # stop-on-error: 'false' || 'true'
-#
 stop-on-error:	true
 }}}
 
