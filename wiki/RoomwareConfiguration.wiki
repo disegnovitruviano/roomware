@@ -17,9 +17,7 @@ In a standard setup with the bluetooth module and the http communicator loaded y
 
 {{{
 # comma seperated list of modules to load
-modules: bluetooth, master
-
-master-class: org.roomwareproject.module.roomware.Module
+modules: bluetooth
 
 # bluetooth class definition
 bluetooth-class: org.roomwareproject.module.bluetooth.Module
@@ -29,25 +27,8 @@ bluetooth-device-clear-time: 160
 bluetooth-zone: hybrid2
 bluetooth-stop-on-nerrors: 0
 
-# fake class definition
-fake-class: org.roomwareproject.module.fake.Module
-fake-devices: 0123456789
-fake-0123456789-name: test
-
 # comma seperated list of communicators to load
-communicators: console, http, post
-
-slave-class: org.roomwareproject.communicator.roomware.Communicator
-slave-host: 192.168.2.101
-#slave-port: port number
-
-roomware-class: org.roomwareproject.module.roomware.Module
-
-# post class definition
-post-class: org.roomwareproject.communicator.post.Communicator
-post-host: 192.168.2.152
-post-port: 9019
-post-path: /eventlist.php
+communicators: console, http
 
 # console class definition
 console-class: org.roomwareproject.communicator.console.Communicator
