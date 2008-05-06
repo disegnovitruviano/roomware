@@ -48,5 +48,7 @@ The allinone donwload contains this module and a JSR-82 implementation for Windo
 
   this option stops the roomware server after n number of errors from the bluetooth module. set this to 2 to stop the server after 2 errors for instance or 0 (or a negative number) to never stop the roomware server on bluetooth errors.
 
-  for most uses it;s not needed to stop the roomware server when the bt module returs errors since it will keep running even if scanning fails now and then.
+   `blue-stop-on-nerrors: 0`
+
+  for most uses it's not needed to stop the roomware server when the bt module returs errors since it will keep running even if scanning fails now and then.
  
