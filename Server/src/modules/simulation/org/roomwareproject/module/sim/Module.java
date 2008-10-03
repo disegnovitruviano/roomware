@@ -133,6 +133,9 @@ public class Module extends AbstractModule {
 				synchronized (this) {
 					presences.add (event.getPresence ());
 				}
+				propertyChange(new PropertyChangeEvent(
+								 event.getPresence ().getDevice (), "in range",
+								 null, event.getPresence ().getZone ()));
 				queue.add (fac.createLeaveEvent (event.getPresence()));
 				queue.add (fac.createArriveEvent ());
 			}
@@ -140,6 +143,9 @@ public class Module extends AbstractModule {
 				synchronized (this) {
 					presences.remove (event.getPresence ());
 				}
+				propertyChange(new PropertyChangeEvent(
+								 event.getPresence ().getDevice (), "in range",
+								 event.getPresence ().getZone (), null));
 			}
 		}
 	}

@@ -4,7 +4,7 @@
   <property name="build" location="build"/>
   <property name="dist" location="dist"/>
 
-  <target name="all" depends="specification, utils, implementation, console, simulation, httpxml"/>
+  <target name="all" depends="specification, utils, implementation, console, simulation, httpxml, fakemod"/>
 
   <target name="specification" depends="init">
     <mkdir dir="${build}/server/specification"/>
@@ -63,6 +63,29 @@
 		</classpath>
 	</javac>
     <jar jarfile="${dist}/module-simulation.jar" basedir="${build}/modules/simulation"/>
+  </target>
+
+  <target name="fakemod" depends="specification, utils">
+    <mkdir dir="${build}/modules/fakemod"/>
+    <javac srcdir="${src}/modules/fakemod" destdir="${build}/modules/fakemod" target="1.5">
+		<classpath>
+			<pathelement location="dist/server-specification.jar"/>
+			<pathelement location="dist/utils.jar"/>
+		</classpath>
+	</javac>
+    <jar jarfile="${dist}/module-fakemod.jar" basedir="${build}/modules/fakemod"/>
+  </target>
+
+  <target name="bluemod" depends="specification, utils">
+    <mkdir dir="${build}/modules/bluemod"/>
+    <javac srcdir="${src}/modules/bluemod" destdir="${build}/modules/bluemod" target="1.5">
+		<classpath>
+			<pathelement location="dist/server-specification.jar"/>
+			<pathelement location="dist/utils.jar"/>
+			<pathelement location="lib/bluecove-2.0.3.jar"/>
+		</classpath>
+	</javac>
+    <jar jarfile="${dist}/module-bluemod.jar" basedir="${build}/modules/bluemod"/>
   </target>
 
   <target name="init">
