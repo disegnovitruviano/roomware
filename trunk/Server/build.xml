@@ -1,0 +1,83 @@
+<project name="roomware server" default="all" basedir=".">
+
+  <property name="src" location="src"/>
+  <property name="build" location="build"/>
+  <property name="dist" location="dist"/>
+
+  <target name="all" depends="specification, utils, implementation, console, simulation, httpxml"/>
+
+  <target name="specification" depends="init">
+    <mkdir dir="${build}/server/specification"/>
+    <javac srcdir="${src}/server/specification" destdir="${build}/server/specification" target="1.5" />
+    <jar jarfile="${dist}/server-specification.jar" basedir="${build}/server/specification"/>
+  </target>
+
+  <target name="implementation" depends="init">
+    <mkdir dir="${build}/server/implementation"/>
+    <javac srcdir="${src}/server/implementation" destdir="${build}/server/implementation" target="1.5">
+		<classpath>
+			<pathelement location="dist/server-specification.jar"/>
+		</classpath>
+	</javac>
+    <jar jarfile="${dist}/server-implementation.jar" basedir="${build}/server/implementation"/>
+  </target>
+
+  <target name="utils" depends="specification">
+    <mkdir dir="${build}/utils"/>
+    <javac srcdir="${src}/utils" destdir="${build}/utils" target="1.5">
+		<classpath>
+			<pathelement location="dist/server-specification.jar"/>
+		</classpath>
+	</javac>
+    <jar jarfile="${dist}/utils.jar" basedir="${build}/utils"/>
+  </target>
+
+  <target name="console" depends="specification, utils">
+    <mkdir dir="${build}/communicators/console"/>
+    <javac srcdir="${src}/communicators/console" destdir="${build}/communicators/console" target="1.5">
+		<classpath>
+			<pathelement location="dist/server-specification.jar"/>
+			<pathelement location="dist/utils.jar"/>
+		</classpath>
+	</javac>
+    <jar jarfile="${dist}/communicator-console.jar" basedir="${build}/communicators/console"/>
+  </target>
+
+  <target name="httpxml" depends="specification, utils">
+    <mkdir dir="${build}/communicators/httpxml"/>
+    <javac srcdir="${src}/communicators/httpxml" destdir="${build}/communicators/httpxml" target="1.5">
+		<classpath>
+			<pathelement location="dist/server-specification.jar"/>
+			<pathelement location="dist/utils.jar"/>
+		</classpath>
+	</javac>
+    <jar jarfile="${dist}/communicator-httpxml.jar" basedir="${build}/communicators/httpxml"/>
+  </target>
+
+  <target name="simulation" depends="specification, utils">
+    <mkdir dir="${build}/modules/simulation"/>
+    <javac srcdir="${src}/modules/simulation" destdir="${build}/modules/simulation" target="1.5">
+		<classpath>
+			<pathelement location="dist/server-specification.jar"/>
+			<pathelement location="dist/utils.jar"/>
+		</classpath>
+	</javac>
+    <jar jarfile="${dist}/module-simulation.jar" basedir="${build}/modules/simulation"/>
+  </target>
+
+  <target name="init">
+	<mkdir dir="${dist}"/>
+  </target>
+
+  <target name="install">
+  	<copy todir="lib">
+		<fileset dir="dist"/>
+	</copy>
+  </target>
+
+  <target name="clean">
+    <delete dir="${build}"/>
+	<delete dir="${dist}"/>
+  </target>
+
+</project>
