@@ -2,6 +2,7 @@ package org.roomwareproject.utils;
 
 import org.roomwareproject.server.*;
 import java.util.*;
+import java.beans.*;
 
 
 class PresenceRecord {
@@ -40,10 +41,12 @@ public class PresenceCacheList {
 
 	protected Set<PresenceRecord> prs;
 	protected int timeout;
+	protected AbstractModule m;
 
-	public PresenceCacheList (int timeout) {
+	public PresenceCacheList (AbstractModule m, int timeout) {
 		prs = new HashSet<PresenceRecord> ();
 		this.timeout = timeout;
+		this.m = m;
 	}
 
 	public synchronized void addPresence (Presence p) {
@@ -54,23 +57,29 @@ public class PresenceCacheList {
 			}
 		}
 		prs.add(new PresenceRecord (p));
+		m.propertyChange(new PropertyChangeEvent(p.getDevice (), "in range", null, p.getZone ()));
 	}
 
-	public synchronized Set<Presence> getPresences () {
-		Set<Presence> presences = new HashSet<Presence> ();
-
+	public synchronized void updatePresences () {
 		Iterator<PresenceRecord> it = prs.iterator ();
 		long now = new Date().getTime();
 		long limit = now - 1000 * timeout;
-
 		while (it.hasNext()) {
 			PresenceRecord pr = it.next ();
 			if (pr.getTime () < limit) {
 				it.remove ();
+				m.propertyChange(new PropertyChangeEvent(pr.getPresence ().getDevice (), "in range", pr.getPresence().getZone (), null));
 			}
-			else presences.add (pr.getPresence ());
 		}
 
+	}
+
+	public synchronized Set<Presence> getPresences () {
+		updatePresences ();
+		Set<Presence> presences = new HashSet<Presence> ();
+		for (PresenceRecord pr: prs) {
+			presences.add (pr.getPresence ());
+		}
 		return presences;
 	}
 
