@@ -28,7 +28,7 @@ public class WebService implements Runnable {
 
 	public void run() {
 		try {
-			out = new PrintStream(client.getOutputStream());
+			out = new PrintStream(client.getOutputStream(), false, "UTF-8");
 			in = new Scanner(client.getInputStream());
 
 			String line = in.nextLine();
@@ -62,7 +62,7 @@ public class WebService implements Runnable {
 		out.println("");
 
 		Set<Presence> presences = server.getPresences();
-		String response = "<?xml version=\"1.0\" encoding=\"UTF-16\"?>\n" + "<devicelist>\n";
+		String response = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" + "<devicelist>\n";
 		for(Presence p: presences) {
 			Device d = p.getDevice ();
 			String deviceAddressRaw = d.getDeviceAddress().toString();
