@@ -1,0 +1,24 @@
+#summary Howto to build from svn source.
+#labels Phase-Deploy,Phase-Implementation
+
+= Introduction =
+
+The build from source wiki in initial state. Not tested yet.
+
+
+= Details =
+
+  * Getting the code
+  {{{ svn checkout http://roomware.googlecode.com/svn/trunk/ roomware-read-only }}}
+  * Go into the server source directory
+  {{{ cd roomware-read-only/Server }}}
+  * Build the server and default modules/communicators
+  {{{ ant all }}}
+  * Download the JSR-082 for bluetooth
+  {{{ cd lib && wget http://bluecove.googlecode.com/files/bluecove-2.0.3.jar }}}
+  * Build the bluetooth module
+  {{{ ant bluemod }}}
+  * Install the base and bluetooth module
+  {{{ ant install }}}
+  * Run the server
+  {{{ bin/run }}}
