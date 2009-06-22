@@ -82,7 +82,11 @@
 		<classpath>
 			<pathelement location="dist/server-specification.jar"/>
 			<pathelement location="dist/utils.jar"/>
-			<pathelement location="lib/bluecove-2.0.3.jar"/>
+			<pathelement location="lib/bluecove-2.1.1-SNAPSHOT.jar"/>
+			<pathelement location="lib/bluecove-bluez-2.1.1-SNAPSHOT.jar"/>
+			<pathelement location="lib/dbus.jar"/>
+			<pathelement location="lib/debug-disable.jar"/>
+			<pathelement location="lib/unix.jar"/>
 		</classpath>
 	</javac>
     <jar jarfile="${dist}/module-bluemod.jar" basedir="${build}/modules/bluemod"/>
