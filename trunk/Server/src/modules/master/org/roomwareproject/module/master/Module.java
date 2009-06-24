@@ -11,7 +11,7 @@ import java.beans.*;
 public class Module extends AbstractModule {
 
 	protected ServerSocket serverSocket;
-	protected Map<String, Set<Presence>> slavePresences;
+	protected Map<WebService, Set<Presence>> slavePresences;
 	protected boolean doLoop;
 
 
@@ -35,30 +35,24 @@ public class Module extends AbstractModule {
 			throw new RoomWareException("unable to open server socket!");
 		}
 
-   		slavePresences = new HashMap<String, Set<Presence>>();
+   		slavePresences = new HashMap<WebService, Set<Presence>>();
 		doLoop = true;
 	}
 
-
-	protected synchronized void initSlave(String roomwareServerId, Set<Presence> presences) {
-		if (slavePresences.containsKey(roomwareServerId)) {
-			Set<Presence> savedPresences = slavePresences.get(roomwareServerId);
-			for (Presence p: savedPresences) {
-				if (!presences.contains(p))
-					removePresence(roomwareServerId, p);
-
-				/* TODO
-				else
-					we should check the device properties...
-					if we don't we end up with the wrong settings
-					for each property. changing each property seperatly
-					will update the proper info.
-				*/
-			}
+	protected synchronized void addSlave(WebService slave, Set<Presence> presences) {
+		slavePresences.put(slave, presences);
+		for (Presence p: presences) {
+			propertyChange(new PropertyChangeEvent(p.getDevice(), "in range", null, p.getZone()));
 		}
-		slavePresences.put(roomwareServerId, presences);
 	}
 
+	protected synchronized void removeSlave(WebService slave) {
+		Set<Presence> presences = slavePresences.get(slave);
+		slavePresences.remove(slave);
+		for (Presence p: presences) {
+			propertyChange(new PropertyChangeEvent(p.getDevice(), "in range", p.getZone(), null));
+		}
+	}
 
 	public void run() {
 		while(doLoop) {
@@ -104,21 +98,28 @@ public class Module extends AbstractModule {
 		throw new RoomWareException("Operation not supported!");
 	}
 
-	synchronized void addPresence(String roomwareServerId, Presence p) {
-		logger.info("adding presence: " + p);
-		slavePresences.get(roomwareServerId).add(p);
+	synchronized void updatePresence(WebService slave, Presence pOld, Presence pNew) {
+		logger.info("updating presence: " + pNew);
+		slavePresences.get(slave).remove(pOld);
+		slavePresences.get(slave).add(pNew);
+		propertyChange(new PropertyChangeEvent(pNew.getDevice(), "in range", pOld.getZone(), pNew.getZone()));
+	}
+
+	synchronized void addPresence(WebService slave, Presence p) {
+		logger.info("adding presence: " + p + ", " + p.getZone());
+		slavePresences.get(slave).add(p);
 		propertyChange(new PropertyChangeEvent(p.getDevice(), "in range", null, p.getZone()));
 	}
 
-	synchronized void removePresence(String roomwareServerId, Presence p) {
-		logger.info("removing presence: " + p);
-		slavePresences.get(roomwareServerId).remove(p);
+	synchronized void removePresence(WebService slave, Presence p) {
+		logger.info("removing presence: " + p + ", " + p.getZone());
+		slavePresences.get(slave).remove(p);
 		propertyChange(new PropertyChangeEvent(p.getDevice(), "in range", p.getZone(), null));
 	}
 
-	synchronized void updateFriendlyName(String roomwareServerId, Device device, String oldValue, String newValue) {
+	synchronized void updateFriendlyName(WebService slave, Device device, String oldValue, String newValue) {
 		logger.info("updating name: " + device);
-		for(Presence lookupPresence: slavePresences.get(roomwareServerId)) {
+		for(Presence lookupPresence: slavePresences.get(slave)) {
 			Device lookupDevice = lookupPresence.getDevice();
 			if(lookupDevice.equals(device)) {
 				lookupDevice.setFriendlyName(newValue);

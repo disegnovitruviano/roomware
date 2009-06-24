@@ -26,26 +26,19 @@ public class WebService implements Runnable {
 
 
 	public void run() {
+		logger.info("begin slave connection: " + this);
 		try {
-			in = new ObjectInputStream(
-				clientSocket.getInputStream());
-
-			handleRoomwareServerId();
-			logger.info("we've got server '" + roomwareServerId + "' here!");
-			logger.info("going to handle device list");
+			in = new ObjectInputStream(clientSocket.getInputStream());
 			handlePresenceList();
-			logger.info("device list handled");
-
 			handleEvents();
-
-			logger.info("we are closing a connection...");
-
 			in.close();
 			clientSocket.close();
 		}
 		catch(IOException cause) {
 			logger.warning(cause.getMessage());
 		}
+		logger.info("end slave connection: " + this);
+		module.removeSlave(this);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -56,21 +49,41 @@ public class WebService implements Runnable {
 			try {
 				PropertyChangeEvent event =
 					(PropertyChangeEvent) in.readObject();
-				Presence p = (Presence) in.readObject();
-				logger.info("got new event");
+				Device device = (Device) in.readObject();
+				logger.info("got new event: " + event.getPropertyName());
 
 				if(event.getPropertyName().equals("in range")) {
-					if(event.getNewValue() == null) {
-						module.removePresence(roomwareServerId, p);
-						presences.remove(p);
+					Presence pOld = null, pNew = null;
+					
+					if (event.getOldValue() != null) {
+						pOld = new Presence (module, event.getOldValue().toString(), device, new Date());
 					}
-					else if(event.getOldValue() == null) {
-						module.addPresence(roomwareServerId, p);
-						presences.add(p);
+					else {
+						logger.info("we are new detected");
+					}
+					if (event.getNewValue() != null) {
+						logger.info("we have new value: " + event.getNewValue());
+						pNew = new Presence (module, event.getNewValue().toString(), device, new Date());
+					}
+					else {
+						logger.info("we have disappeared");
+					}
+					if(event.getOldValue() == null) {
+						presences.add(pNew);
+						module.addPresence(this, pNew);
+					}
+					else if (event.getNewValue() == null) {
+						presences.remove(pOld);
+						module.removePresence(this, pOld);
+					}
+					else {
+						presences.remove(pOld);
+						presences.add(pNew);
+						module.updatePresence(this, pOld, pNew);
 					}
 				}
 				else if(event.getPropertyName().equals("name")) {
-					module.updateFriendlyName(roomwareServerId, p.getDevice(), (String)event.getOldValue(), (String)event.getNewValue());
+					module.updateFriendlyName(this, device, (String)event.getOldValue(), (String)event.getNewValue());
 				}
 			}
 			catch (ClassNotFoundException cause) {
@@ -94,9 +107,15 @@ public class WebService implements Runnable {
 	@SuppressWarnings("unchecked")
 	private void handlePresenceList() throws IOException {
 		try {
-			Set<Presence> newPresences = (Set<Presence>)in.readObject();
-			presences = newPresences;
-			module.initSlave(roomwareServerId, newPresences);
+			Set<Presence> presences = new HashSet<Presence>();
+			int presenceCount = in.readInt();
+			while (presenceCount-- > 0) {
+				String zone = (String)in.readObject();
+				Device device = (Device)in.readObject();
+				Date time = (Date)in.readObject();
+				presences.add(new Presence(module, zone, device, time));
+			}
+			module.addSlave(this, presences);
 		}
 		catch (ClassNotFoundException cause) {
 			throw new IOException ("cant read Set<Presence> Class!");
