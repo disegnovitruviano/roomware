@@ -1,11 +1,14 @@
 ACTIVITY:
-Adding master module and slave communicator
+Adding master module and slave communicator, OSC module
+
 STATUS: compilable, not tested.
 
 DONE:
 22 jun 09 - Module.java has been converted
 23 jun 09 - master module has been compiled
 23 jun 09 - slave communicator has been compiled
+23 jun 09 - OSC Module has been written and compiled
 
 TODO:
 - Testing of slave and master
+- Testing of OSC module
