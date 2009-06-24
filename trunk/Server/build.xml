@@ -76,6 +76,18 @@
     <jar jarfile="${dist}/module-simulation.jar" basedir="${build}/modules/simulation"/>
   </target>
 
+  <target name="oscmod" depends="specification, utils">
+    <mkdir dir="${build}/modules/oscmod"/>
+    <javac srcdir="${src}/modules/oscmod" destdir="${build}/modules/oscmod" target="1.5">
+		<classpath>
+			<pathelement location="dist/server-specification.jar"/>
+			<pathelement location="dist/utils.jar"/>
+			<pathelement location="lib/NetUtil.jar"/>
+		</classpath>
+	</javac>
+    <jar jarfile="${dist}/module-oscmod.jar" basedir="${build}/modules/oscmod"/>
+  </target>
+
   <target name="master" depends="specification, utils">
     <mkdir dir="${build}/modules/master"/>
     <javac srcdir="${src}/modules/master" destdir="${build}/modules/master" target="1.5">
