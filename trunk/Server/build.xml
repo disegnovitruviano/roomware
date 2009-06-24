@@ -4,7 +4,7 @@
   <property name="build" location="build"/>
   <property name="dist" location="dist"/>
 
-  <target name="all" depends="specification, utils, implementation, console, simulation, httpxml, fakemod"/>
+  <target name="all" depends="specification, utils, implementation, console, simulation, httpxml, fakemod, master, slave"/>
 
   <target name="specification" depends="init">
     <mkdir dir="${build}/server/specification"/>
@@ -54,6 +54,17 @@
     <jar jarfile="${dist}/communicator-httpxml.jar" basedir="${build}/communicators/httpxml"/>
   </target>
 
+  <target name="slave" depends="specification, utils">
+    <mkdir dir="${build}/communicators/slave"/>
+    <javac srcdir="${src}/communicators/slave" destdir="${build}/communicators/slave" target="1.5">
+		<classpath>
+			<pathelement location="dist/server-specification.jar"/>
+			<pathelement location="dist/utils.jar"/>
+		</classpath>
+	</javac>
+    <jar jarfile="${dist}/communicator-slave.jar" basedir="${build}/communicators/slave"/>
+  </target>
+
   <target name="simulation" depends="specification, utils">
     <mkdir dir="${build}/modules/simulation"/>
     <javac srcdir="${src}/modules/simulation" destdir="${build}/modules/simulation" target="1.5">
@@ -63,6 +74,17 @@
 		</classpath>
 	</javac>
     <jar jarfile="${dist}/module-simulation.jar" basedir="${build}/modules/simulation"/>
+  </target>
+
+  <target name="master" depends="specification, utils">
+    <mkdir dir="${build}/modules/master"/>
+    <javac srcdir="${src}/modules/master" destdir="${build}/modules/master" target="1.5">
+		<classpath>
+			<pathelement location="dist/server-specification.jar"/>
+			<pathelement location="dist/utils.jar"/>
+		</classpath>
+	</javac>
+    <jar jarfile="${dist}/module-master.jar" basedir="${build}/modules/master"/>
   </target>
 
   <target name="fakemod" depends="specification, utils">
