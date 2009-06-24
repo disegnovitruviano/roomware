@@ -1,4 +1,4 @@
-package org.roomwareproject.communicator.roomware; 
+package org.roomwareproject.communicator.slave; 
 
 import org.roomwareproject.server.*;
 import org.roomwareproject.utils.*;
@@ -13,7 +13,6 @@ import java.net.*;
 public class Communicator extends AbstractCommunicator {
 
 	protected boolean doLoop = true;
-	protected String roomwareServerId;
 	protected String host;
 	protected int port;
 	protected InetAddress inetAddress;
@@ -39,7 +38,6 @@ public class Communicator extends AbstractCommunicator {
 
 	protected void init() throws RoomWareException {
 		try {
-			roomwareServerId = properties.getProperty("id", "anonymous");
 			host = properties.getProperty("host");
 			port = Integer.parseInt(
 				properties.getProperty("port", "4003"));
@@ -61,8 +59,13 @@ public class Communicator extends AbstractCommunicator {
 				Socket socket = new Socket (inetAddress, port);
 				ObjectOutputStream out = new ObjectOutputStream (socket.getOutputStream());
 				logger.info("socket opened");
-				out.writeObject(roomwareServerId);
-				out.writeObject(roomwareServer.getPresences());
+				Set<Presence> presences = roomwareServer.getPresences();
+				out.writeInt(presences.size());
+				for (Presence p: presences) {
+					out.writeObject(p.getZone());
+					out.writeObject(p.getDevice());
+					out.writeObject(p.getDetectTime());
+				}
 				out.flush();
 
 				logger.info("device list written");
