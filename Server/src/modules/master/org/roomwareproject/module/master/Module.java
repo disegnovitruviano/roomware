@@ -5,12 +5,13 @@ import org.roomwareproject.utils.*;
 import java.util.*;
 import java.util.logging.*;
 import java.io.*;
+import java.net.*;
 import java.beans.*;
 
 public class Module extends AbstractModule {
 
 	protected ServerSocket serverSocket;
-	protected Set<Presence> presences;
+	protected Map<String, Set<Presence>> slavePresences;
 	protected boolean doLoop;
 
 
@@ -34,10 +35,29 @@ public class Module extends AbstractModule {
 			throw new RoomWareException("unable to open server socket!");
 		}
 
-   		presences = new HashSet<Presence>();
+   		slavePresences = new HashMap<String, Set<Presence>>();
 		doLoop = true;
 	}
 
+
+	protected synchronized void initSlave(String roomwareServerId, Set<Presence> presences) {
+		if (slavePresences.containsKey(roomwareServerId)) {
+			Set<Presence> savedPresences = slavePresences.get(roomwareServerId);
+			for (Presence p: savedPresences) {
+				if (!presences.contains(p))
+					removePresence(roomwareServerId, p);
+
+				/* TODO
+				else
+					we should check the device properties...
+					if we don't we end up with the wrong settings
+					for each property. changing each property seperatly
+					will update the proper info.
+				*/
+			}
+		}
+		slavePresences.put(roomwareServerId, presences);
+	}
 
 
 	public void run() {
@@ -71,7 +91,11 @@ public class Module extends AbstractModule {
 
 
 	public synchronized Set<Presence> getPresences() {
-		return new HashSet<Presence>(presences);
+		Set<Presence> allPresences = new HashSet<Presence> ();
+		for (Set<Presence> presences: slavePresences.values()) {
+			allPresences.addAll(presences);
+		}
+		return allPresences;
 	}
 
 
@@ -80,21 +104,21 @@ public class Module extends AbstractModule {
 		throw new RoomWareException("Operation not supported!");
 	}
 
-	void synchronized addPresence(Presence p) {
+	synchronized void addPresence(String roomwareServerId, Presence p) {
 		logger.info("adding presence: " + p);
-		presences.add(p);
+		slavePresences.get(roomwareServerId).add(p);
 		propertyChange(new PropertyChangeEvent(p.getDevice(), "in range", null, p.getZone()));
 	}
 
-	void synchronized removePresence(Presence p) {
+	synchronized void removePresence(String roomwareServerId, Presence p) {
 		logger.info("removing presence: " + p);
-		presences.remove(p);
+		slavePresences.get(roomwareServerId).remove(p);
 		propertyChange(new PropertyChangeEvent(p.getDevice(), "in range", p.getZone(), null));
 	}
 
-	void synchronized updateName(Device device, String oldValue, String newValue) {
+	synchronized void updateFriendlyName(String roomwareServerId, Device device, String oldValue, String newValue) {
 		logger.info("updating name: " + device);
-		for(Presence lookupPresence: presences) {
+		for(Presence lookupPresence: slavePresences.get(roomwareServerId)) {
 			Device lookupDevice = lookupPresence.getDevice();
 			if(lookupDevice.equals(device)) {
 				lookupDevice.setFriendlyName(newValue);
@@ -102,6 +126,7 @@ public class Module extends AbstractModule {
 				return;
 			}
 		}
-		logger.warning("device not known, cant update name!");
+		logger.warning("device not known, can't update name!");
 	}
+
 }
