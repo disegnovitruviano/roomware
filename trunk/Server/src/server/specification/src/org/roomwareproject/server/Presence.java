@@ -33,7 +33,7 @@ public class Presence {
 	}
 
 	public boolean equals (Object o) {
-		if (!(o instanceof Object)) return false;
+		if (!(o instanceof Presence)) return false;
 		Presence p = (Presence) o;
 		return (p.device.equals(device)) &&
 			(p.zone.equals (zone)) &&
