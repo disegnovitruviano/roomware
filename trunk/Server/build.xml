@@ -45,6 +45,10 @@
 
   <target name="httpxml" depends="specification, utils">
     <mkdir dir="${build}/communicators/httpxml"/>
+	<mkdir dir="${build}/communicators/httpxml/docs"/>
+	<copy todir="${build}/communicators/httpxml/docs">
+		<fileset dir="${src}/communicators/httpxml/docs"/>
+	</copy>
     <javac srcdir="${src}/communicators/httpxml" destdir="${build}/communicators/httpxml" target="1.5">
 		<classpath>
 			<pathelement location="dist/server-specification.jar"/>
