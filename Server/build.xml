@@ -91,18 +91,6 @@
     <jar jarfile="${dist}/module-simulation.jar" basedir="${build}/modules/simulation"/>
   </target>
 
-  <target name="oscmod" depends="specification, utils">
-    <mkdir dir="${build}/modules/oscmod"/>
-    <javac srcdir="${src}/modules/oscmod" destdir="${build}/modules/oscmod" target="1.5">
-		<classpath>
-			<pathelement location="dist/server-specification.jar"/>
-			<pathelement location="dist/utils.jar"/>
-			<pathelement location="lib/NetUtil.jar"/>
-		</classpath>
-	</javac>
-    <jar jarfile="${dist}/module-oscmod.jar" basedir="${build}/modules/oscmod"/>
-  </target>
-
   <target name="master" depends="specification, utils">
     <mkdir dir="${build}/modules/master"/>
     <javac srcdir="${src}/modules/master" destdir="${build}/modules/master" target="1.5">
@@ -123,6 +111,52 @@
 		</classpath>
 	</javac>
     <jar jarfile="${dist}/module-fakemod.jar" basedir="${build}/modules/fakemod"/>
+  </target>
+
+  <target name="oscrfid" depends="specification, utils">
+    <mkdir dir="${build}/modules/oscrfid"/>
+    <javac srcdir="${src}/modules/oscrfid" destdir="${build}/modules/oscrfid" target="1.5">
+		<classpath>
+			<pathelement location="dist/server-specification.jar"/>
+			<pathelement location="dist/utils.jar"/>
+			<pathelement location="lib/NetUtil.jar"/>
+		</classpath>
+	</javac>
+    <jar jarfile="${dist}/module-oscrfid.jar" basedir="${build}/modules/oscrfid"/>
+  </target>
+
+  <target name="feigrfid" depends="specification, utils">
+    <mkdir dir="${build}/modules/feigrfid"/>
+    <javac srcdir="${src}/modules/feigrfid" destdir="${build}/modules/feigrfid" target="1.5">
+		<classpath>
+			<pathelement location="dist/server-specification.jar"/>
+			<pathelement location="dist/utils.jar"/>
+		</classpath>
+	</javac>
+	<jar jarfile="${dist}/module-feigrfid.jar" basedir="${build}/modules/feigrfid"/>
+  </target>
+
+  <target name="alienrfid" depends="specification, utils">
+    <mkdir dir="${build}/modules/alienrfid"/>
+    <javac srcdir="${src}/modules/alienrfid" destdir="${build}/modules/alienrfid" target="1.5">
+		<classpath>
+			<pathelement location="dist/server-specification.jar"/>
+			<pathelement location="dist/utils.jar"/>
+		</classpath>
+	</javac>
+    <jar jarfile="${dist}/module-alienrfid.jar" basedir="${build}/modules/alienrfid"/>
+  </target>
+
+  <target name="phidgetrfid" depends="specification, utils">
+    <mkdir dir="${build}/modules/phidgetrfid"/>
+    <javac srcdir="${src}/modules/phidgetrfid" destdir="${build}/modules/phidgetrfid" target="1.5">
+		<classpath>
+			<pathelement location="dist/server-specification.jar"/>
+			<pathelement location="dist/utils.jar"/>
+			<pathelement location="lib/Phidget21.jar"/>
+		</classpath>
+	</javac>
+    <jar jarfile="${dist}/module-phidgetrfid.jar" basedir="${build}/modules/phidgetrfid"/>
   </target>
 
   <target name="bluemod" depends="specification, utils">
