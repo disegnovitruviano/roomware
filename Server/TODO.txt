@@ -8,6 +8,7 @@ DONE:
 23 jun 09 - master module has been compiled
 23 jun 09 - slave communicator has been compiled
 23 jun 09 - OSC Module has been written and compiled
+25 jun 09 - master and slave are now working in a setup
 
 TODO:
 - Testing of slave and master

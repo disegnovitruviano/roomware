@@ -20,6 +20,7 @@ public class Module extends AbstractModule {
 		init();
 	}
 
+
 	protected void init() throws RoomWareException {
 		try {
 			int port = Integer.parseInt(
@@ -39,12 +40,14 @@ public class Module extends AbstractModule {
 		doLoop = true;
 	}
 
+
 	protected synchronized void addSlave(WebService slave, Set<Presence> presences) {
 		slavePresences.put(slave, presences);
 		for (Presence p: presences) {
 			propertyChange(new PropertyChangeEvent(p.getDevice(), "in range", null, p.getZone()));
 		}
 	}
+
 
 	protected synchronized void removeSlave(WebService slave) {
 		Set<Presence> presences = slavePresences.get(slave);
@@ -53,6 +56,7 @@ public class Module extends AbstractModule {
 			propertyChange(new PropertyChangeEvent(p.getDevice(), "in range", p.getZone(), null));
 		}
 	}
+
 
 	public void run() {
 		while(doLoop) {
@@ -98,36 +102,73 @@ public class Module extends AbstractModule {
 		throw new RoomWareException("Operation not supported!");
 	}
 
-	synchronized void updatePresence(WebService slave, Presence pOld, Presence pNew) {
-		logger.info("updating presence: " + pNew);
-		slavePresences.get(slave).remove(pOld);
-		slavePresences.get(slave).add(pNew);
-		propertyChange(new PropertyChangeEvent(pNew.getDevice(), "in range", pOld.getZone(), pNew.getZone()));
+
+	synchronized void handleEvent(WebService slave, PropertyChangeEvent event) {
+		String property = event.getPropertyName();
+		if (property.equals("in range")) {
+			handleInRangeEvent(slave, event);
+		}
+		else if (property.equals("name")) {
+			handleNameEvent(slave, event);
+		}
 	}
 
-	synchronized void addPresence(WebService slave, Presence p) {
-		logger.info("adding presence: " + p + ", " + p.getZone());
-		slavePresences.get(slave).add(p);
-		propertyChange(new PropertyChangeEvent(p.getDevice(), "in range", null, p.getZone()));
+
+	protected synchronized void handleInRangeEvent(WebService slave, PropertyChangeEvent event) {
+		Set<Presence> presences = slavePresences.get(slave);
+		if (!(event.getSource() instanceof Device)) {
+			logger.warning("Got not a Device in event source but: " + event.getSource());
+			return;
+		}
+		Device device = (Device)event.getSource();
+		Presence p;
+
+		if (event.getNewValue() == null) { // we are leaving zone
+			p = new Presence(this, event.getOldValue().toString(), device, new Date());
+			presences.remove(p);
+			propertyChange(new PropertyChangeEvent(p.getDevice(), "in range", p.getZone(), null));
+		}
+
+		else if (event.getOldValue() == null) { // we are new in zone
+			p = new Presence(this, event.getNewValue().toString(), device, new Date());
+			presences.add (p);
+			propertyChange(new PropertyChangeEvent(p.getDevice(), "in range", null, p.getZone()));
+		}
+
+		else { // we are changing zones
+			p = new Presence(this, event.getOldValue().toString(), device, new Date());
+			presences.remove(p);
+			p = new Presence(this, event.getNewValue().toString(), device, new Date());
+			presences.add(p);
+			propertyChange(new PropertyChangeEvent(p.getDevice(), "in range", null, p.getZone()));
+		}
 	}
 
-	synchronized void removePresence(WebService slave, Presence p) {
-		logger.info("removing presence: " + p + ", " + p.getZone());
-		slavePresences.get(slave).remove(p);
-		propertyChange(new PropertyChangeEvent(p.getDevice(), "in range", p.getZone(), null));
-	}
 
-	synchronized void updateFriendlyName(WebService slave, Device device, String oldValue, String newValue) {
+	protected synchronized void handleNameEvent(WebService slave, PropertyChangeEvent event) {
+		if (!(event.getSource() instanceof Device)) {
+			logger.warning("Got not a Device in event source but: " + event.getSource());
+			return;
+		}
+		Device device = (Device)event.getSource();
+		String currentName = (String)event.getOldValue();
+		String newName = (String)event.getNewValue();
+		boolean found = false;
+
 		logger.info("updating name: " + device);
 		for(Presence lookupPresence: slavePresences.get(slave)) {
 			Device lookupDevice = lookupPresence.getDevice();
 			if(lookupDevice.equals(device)) {
-				lookupDevice.setFriendlyName(newValue);
-				propertyChange(new PropertyChangeEvent(lookupDevice, "name", oldValue, newValue));
-				return;
+				lookupDevice.setFriendlyName(newName);
+				found = true;
 			}
 		}
-		logger.warning("device not known, can't update name!");
+
+		if (found) {
+			propertyChange(new PropertyChangeEvent(device, "name", currentName, newName));
+		} else {
+			logger.warning("device not known, can't update name!");
+		}
 	}
 
 }
