@@ -27,7 +27,7 @@ public class Communicator extends AbstractCommunicator {
 
 	public void messageReceived(MessageEvent messageEvent) {
 		/* TODO
-		 * built in message forwarding support
+		 * build message forwarding support
 		 */
 		logger.info ("Discarding message due to lack of support in this RWS version!");
 	}
@@ -47,8 +47,7 @@ public class Communicator extends AbstractCommunicator {
 			throw new RoomWareException("Can't resolve host name");
 		}
 		catch(NumberFormatException cause) {
-			throw new RoomWareException("Could not parse property: "
-										+ cause.getMessage());
+			throw new RoomWareException("Could not parse property: " + cause.getMessage());
 		}
 	}
 
@@ -62,9 +61,8 @@ public class Communicator extends AbstractCommunicator {
 				Set<Presence> presences = roomwareServer.getPresences();
 				out.writeInt(presences.size());
 				for (Presence p: presences) {
-					out.writeObject(p.getZone());
 					out.writeObject(p.getDevice());
-					out.writeObject(p.getDetectTime());
+					out.writeObject(p.getZone());
 				}
 				out.flush();
 
@@ -73,6 +71,7 @@ public class Communicator extends AbstractCommunicator {
 				while(doLoop) {
 					try {
 						PropertyChangeEvent event = eventQueue.take();
+						logger.info("event source = " + event.getSource());
 						out.writeObject(event);
 						out.writeObject(event.getSource());
 						out.flush();
