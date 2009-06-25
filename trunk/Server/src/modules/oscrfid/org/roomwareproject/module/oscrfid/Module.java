@@ -1,4 +1,4 @@
-package org.roomwareproject.module.oscmod;
+package org.roomwareproject.module.oscrfid;
 
 import org.roomwareproject.server.*;
 import org.roomwareproject.utils.*;

@@ -1,10 +1,10 @@
-package org.roomwareproject.module.oscmod;
+package org.roomwareproject.module.oscrfid;
 
 import org.roomwareproject.server.*;
 
 public class OSCTagDeviceAddress extends DeviceAddress {
 	protected String address;
-	protected String type = "OSCTag";
+	protected String type = "OSCRfidTag";
 
 	public OSCTagDeviceAddress(Object arg1, Object arg2) {
 		address = arg1 + "-" + arg2;
