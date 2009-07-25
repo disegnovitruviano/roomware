@@ -37,7 +37,7 @@ public class WebService implements Runnable {
 			String [] splitted = null;
 			splitted = line.split(" ");
 			
-			if (splitted[0].trim().contains("GET"))
+			if (splitted[0].trim().contains("GET") && splitted.length > 1)
 				path = splitted[1];
 
 			if(line.contains("crossdomain")) handleCrossDomain();
@@ -70,7 +70,9 @@ public class WebService implements Runnable {
 		
 		if (httpPath != "/") {
 			String [] splittedPath = httpPath.split("/");
-			protocol = splittedPath[1];
+			if (splittedPath.length > 1) {
+				protocol = splittedPath[1];
+			}
 		}
 
 		if (protocol.equals("json-plain")) {
@@ -103,6 +105,18 @@ public class WebService implements Runnable {
 			out.println("");
 			prefix = "id,name,type,zone,time\n";
 			suffix = "";
+		} else if (protocol.equals("none") && httpPath.equals("/")) {
+			out.println("HTTP/0.9 200 OK");
+			out.println("Server: RoomWare HTTP Communicator");
+			out.println("Content-Type: text/html");
+			out.println("Connection: close");
+			out.println("");
+			
+			Scanner ins = new Scanner(getClass().getResourceAsStream("/docs/index.html"));
+			while(ins.hasNextLine()) {
+				out.println(ins.nextLine());
+			}
+			return;
 		}
 		else {		
 			out.println("HTTP/0.9 404 Not found");
