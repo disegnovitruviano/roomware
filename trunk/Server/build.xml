@@ -4,7 +4,7 @@
   <property name="build" location="build"/>
   <property name="dist" location="dist"/>
 
-  <target name="all" depends="specification, utils, implementation, console, simulation, httpxml, fakemod, master, slave, post"/>
+  <target name="all" depends="specification, utils, implementation, console, simulation, httpxml, httpd, fakemod, master, slave, post"/>
 
   <target name="specification" depends="init">
     <mkdir dir="${build}/server/specification"/>
@@ -56,6 +56,21 @@
 		</classpath>
 	</javac>
     <jar jarfile="${dist}/communicator-httpxml.jar" basedir="${build}/communicators/httpxml"/>
+  </target>
+
+  <target name="httpd" depends="specification, utils">
+    <mkdir dir="${build}/communicators/httpd"/>
+	<mkdir dir="${build}/communicators/httpd/docs"/>
+	<copy todir="${build}/communicators/httpd/docs">
+		<fileset dir="${src}/communicators/httpd/docs"/>
+	</copy>
+    <javac srcdir="${src}/communicators/httpd" destdir="${build}/communicators/httpd" target="1.5">
+		<classpath>
+			<pathelement location="dist/server-specification.jar"/>
+			<pathelement location="dist/utils.jar"/>
+		</classpath>
+	</javac>
+    <jar jarfile="${dist}/communicator-httpd.jar" basedir="${build}/communicators/httpd"/>
   </target>
 
   <target name="post" depends="specification, utils">
