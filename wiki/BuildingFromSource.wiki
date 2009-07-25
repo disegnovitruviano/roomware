@@ -15,11 +15,11 @@ The build from source wiki in initial state. Not tested yet.
   * Build the server and default modules/communicators
   {{{ ant all }}}
   * Download the JSR-082 for bluetooth
-  {{{ cd lib && wget http://bluecove.googlecode.com/files/bluecove-2.0.3.jar }}} 
+  {{{ cd lib && wget http://bluecove.googlecode.com/files/bluecove-2.1.0.jar }}} 
 
   or (if wget is not on your system i.e. mac os)
 
-  {{{ cd lib && curl -C - -O http://bluecove.googlecode.com/files/bluecove-2.0.3.jar }}}
+  {{{ cd lib && curl -C - -O http://bluecove.googlecode.com/files/bluecove-2.1.0.jar }}}
   * Build the bluetooth module
   {{{ ant bluemod }}}
   * Install the base and bluetooth module
