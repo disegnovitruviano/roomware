@@ -17,6 +17,8 @@ When you want to get the data in one of the supported formats, just open a HTTP 
 
 There is one important notice, the CSV format has it's fieldnames printed on the first line of the output, so strip it off if you input the raw data into your application.
 
+When you access http://yourroomwareserver:port/ you will be served a small html file linking to the site and documenation. If you do not want to expose this information, edit the /build/communicators/httpd/docs/index.html file.
+
 = Migrating old httpxml based applications =
 
 If your application uses the httpxml communicator, you can simply adjust the uri to one of the above. The xml format and behaviour is exactly the same as the old httpxml service.
