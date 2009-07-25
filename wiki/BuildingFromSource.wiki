@@ -16,6 +16,8 @@ The build from source wiki in initial state. Not tested yet.
   {{{ ant all }}}
   * Download the JSR-082 for bluetooth
   {{{ cd lib && wget http://bluecove.googlecode.com/files/bluecove-2.1.0.jar }}} 
+  * If you are on linux add an additional file:
+  {{{ wget http://bluecove.googlecode.com/files/bluecove-gpl-2.1.0.jar }}}
 
   or (if wget is not on your system i.e. mac os)
 
