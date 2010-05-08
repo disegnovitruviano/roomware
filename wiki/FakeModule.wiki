@@ -1,4 +1,6 @@
+#summary Simulates a few devices with or without fake names.
 #labels Phase-Deploy,testing
+
 = Introduction =
 
 This is really a short description of the 'fake device' module:
