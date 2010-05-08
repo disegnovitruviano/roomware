@@ -40,3 +40,23 @@ post2-host: 192.168.2.152
 post2-port: 9019
 post2-path: /debug.php
 }}}
+
+= Handling POST calls in your script, aka wtf is being sent =
+The Roomware server notifies you in 2 scenarios, when a message is sent or when one of it's property changes. For instance on adding/removing you get a PropertyChangeEvent with a propertyName of inrange with a newValue/oldValue.
+
+When a message is sent around:
+|| event || hardcoded value, "messageReceived" ||
+|| message || the message for the device ||
+|| date || timestamp for the message ||
+|| deviceAddress || the inner device address ||
+|| deviceName || the device's name ||
+
+When a property on a device changes:
+|| event || hardcoded value, "propertyChange" ||
+|| oldValue || previous value for this property ||
+|| newValue || new value for this property ||
+|| deviceAddress || the inner device address ||
+|| deviceName || the device's name ||
+|| propertyName || the property that changed ||
+
+Both event's register null values as "(null)", so you can check against that for a proper null value, this also means that a post value is always set for all of the above keys.
